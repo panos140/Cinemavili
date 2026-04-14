@@ -18,27 +18,17 @@
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
         }
-        h1 {
-            text-align: center;
-        }
-        label {
-            display: block;
-            margin-bottom: 8px;
-        }
-        input[type="text"], input[type="email"], select {
+        h1 { text-align: center; }
+        label { display: block; margin-bottom: 8px; }
+
+        input, select {
             width: 100%;
             padding: 10px;
             margin-bottom: 20px;
             border: 1px solid #ccc;
             border-radius: 4px;
         }
-        .ticket-number {
-            padding: 10px;
-            margin-bottom: 20px;
-            border: 1px solid #ccc;
-            border-radius: 4px;
-            background: #f4f4f4;
-        }
+
         button {
             width: 100%;
             padding: 10px;
@@ -49,48 +39,74 @@
             font-size: 16px;
             cursor: pointer;
         }
-        button:hover {
-            background-color: #4cae4c;
-        }
+
+        button:hover { background-color: #4cae4c; }
     </style>
 </head>
+
 <body>
-    <div class="container">
-        <h1>Παραγγείλετε εισιτήρια κινηματογράφου</h1>
-        <form action="https://hook.eu2.make.com/uu8bghtw5ce6hr1dchhb3wc5c2f3dsx5" method="POST">
-            <label for="name">Ονοματεπώνυμο</label>
-            <input type="text" id="name" name="name" required>
-            
-            <label for="email">Email</label>
-            <input type="email" id="email" name="email" required>
-            
-            <label for="phone">Αριθμός τηλεφώνου</label>
-            <input type="text" id="phone" name="phone">
-            
-            <label for="movie">Ταινία</label>
-            <select id="movie" name="movie" required>
-                <option value="">Επιλέξτε μια ταινία</option>
-                <option value="22-06-25 | Μια Ταινία Minecraft">22-06-25 | Μια Ταινία Minecraft</option>
-                <option value="29-06-25 | Scream">29-06-25 | Scream</option>
-                <!-- Add more options as needed -->
-            </select>
-            
-            <label for="time">Ώρα</label>
-            <select id="time" name="time" required>
-                <option value="9:00 PM">9:00μμ</option>
-            </select>
-            
-            <label for="tickets">Αριθμός Εισιτηρίων</label>
-            <div class="ticket-number">
-                <input type="number" id="tickets" name="tickets" min="1" max="10" required>
-            </div>
-            
-            <button type="submit">Παραγγελία εισιτηρίων</button>
-        </form>
-        <form action="index.html">
-            <button>ΠΗΓΑΙΝΕ ΠΙΣΩ</button>
-        </form>
-    </div>
+<div class="container">
+    <h1>Παραγγείλετε εισιτήρια κινηματογράφου</h1>
+
+    <form action="https://hook.eu2.make.com/uu8bghtw5ce6hr1dchhb3wc5c2f3dsx5" method="POST">
+
+        <label>Ονοματεπώνυμο</label>
+        <input type="text" name="name" required>
+
+        <label>Email</label>
+        <input type="email" name="email" required>
+
+        <label>Αριθμός τηλεφώνου</label>
+        <input type="text" name="phone">
+
+        <!-- MOVIE SELECT -->
+        <label>Ταινία</label>
+        <select id="movie" name="movie" required onchange="setPoster()">
+            <option value="">Επιλέξτε μια ταινία</option>
+
+            <option 
+              value="22-06-25 | Minecraft"
+              data-poster="https://upload.wikimedia.org/wikipedia/el/b/bf/Minecraft_movie.webp">
+              22-06-25 | Μια Ταινία Minecraft
+            </option>
+
+            <option 
+              value="29-06-25 | Scream"
+              data-poster="https://upload.wikimedia.org/wikipedia/en/thumb/8/86/Scream_%281996_film%29_poster.jpg/250px-Scream_%281996_film%29_poster.jpg">
+              29-06-25 | Scream
+            </option>
+
+        </select>
+
+        <!-- THIS GETS SENT TO MAKE -->
+        <input type="hidden" name="poster_url" id="poster_url">
+
+        <label>Ώρα</label>
+        <select name="time" required>
+            <option value="9:00 PM">9:00μμ</option>
+        </select>
+
+        <label>Αριθμός Εισιτηρίων</label>
+        <input type="number" name="tickets" min="1" max="10" required>
+
+        <button type="submit">Παραγγελία εισιτηρίων</button>
+    </form>
+
+    <form action="index.html">
+        <button>ΠΗΓΑΙΝΕ ΠΙΣΩ</button>
+    </form>
+</div>
+
+<script>
+function setPoster() {
+    const select = document.getElementById("movie");
+    const selected = select.options[select.selectedIndex];
+
+    const poster = selected.getAttribute("data-poster");
+
+    document.getElementById("poster_url").value = poster;
+}
+</script>
 
 </body>
 </html>
