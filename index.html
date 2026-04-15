@@ -16,6 +16,24 @@
     <nav class="nav-links">
       <a href="order.html" class="btn">Order Ticket</a>
       <a href="#comingup" class="btn">Coming Up</a>
+
+      <!-- PayPal Donate Button -->
+      <div id="donate-button-container" style="display:inline-block; margin-left:15px;">
+        <div id="donate-button"></div>
+        <script src="https://www.paypalobjects.com/donate/sdk/donate-sdk.js" charset="UTF-8"></script>
+        <script>
+        PayPal.Donation.Button({
+          env:'production',
+          hosted_button_id:'95MELYL4D4BVU',
+          image: {
+            src:'https://www.paypalobjects.com/en_US/i/btn/btn_donate_LG.gif',
+            alt:'Donate with PayPal button',
+            title:'PayPal - The safer, easier way to pay online!',
+          }
+        }).render('#donate-button');
+        </script>
+      </div>
+
     </nav>
   </header>
 
